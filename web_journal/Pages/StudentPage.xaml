@@ -1,0 +1,46 @@
+﻿<Page x:Class="web_journal.Pages.StudentPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel ="clr-namespace:web_journal.ViewModels"
+        xmlns:local="clr-namespace:web_journal.Pages"
+        mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="MenuLabel">
+            <Setter Property ="Label.Padding" Value="8"></Setter>
+            <Setter Property="Label.Foreground" Value="White"></Setter>
+        </Style>
+        <Style x:Key="MenuRadioButton">
+            <Setter Property="RadioButton.Margin" Value="5"></Setter>
+            <Setter Property="RadioButton.Foreground" Value="White"></Setter>
+        </Style>
+        <Style x:Key="MainStackPanel">
+            <Setter Property="StackPanel.Background" Value="Black"></Setter>
+            <Setter Property="StackPanel.Orientation" Value="Horizontal"></Setter>
+        </Style>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModel:StudentViewModel></viewModel:StudentViewModel>
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"></ColumnDefinition >
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Style="{StaticResource MainStackPanel}">
+            <StackPanel>
+                <Label Style="{StaticResource MenuLabel}">Меню</Label>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Command="{Binding ToInfoPageCommand}">Личная информация</RadioButton>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Command="{Binding ToMarksPageCommand}">Оценки</RadioButton>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Command="{Binding ToSchedulePageCommand}">Расписание</RadioButton>
+            </StackPanel>
+        </StackPanel>
+        <Frame 
+            Grid.Column="1"
+            Content="{Binding CurrentPage}"
+            NavigationUIVisibility="Hidden">
+        </Frame>
+    </Grid>
+</Page>

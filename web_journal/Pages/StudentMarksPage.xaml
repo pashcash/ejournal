@@ -1,0 +1,74 @@
+﻿<Page x:Class="web_journal.Pages.StudentMarksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModel="clr-namespace:web_journal.ViewModels"
+      xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StudentMarksPage">
+    <Page.Resources>
+        <Style x:Key="Header">
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="TextBlock.Padding" Value="8"></Setter>
+        </Style>
+        <Style x:Key="QuarterPanel">
+            <Setter Property="StackPanel.Orientation" Value="Horizontal"></Setter>
+            <Setter Property="StackPanel.VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="StackPanel.HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="StackPanel.Margin" Value="10"></Setter>
+        </Style>
+        <Style x:Key="QuarterPanelTextBlock">
+            <Setter Property="TextBlock.Margin" Value="0 0 5 0"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="SubjectMarksListView">
+            <Setter Property="ListView.BorderBrush" Value="Black"></Setter>
+            <Setter Property="ListView.Margin" Value="10 35 10 10"></Setter>
+        </Style>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModel:StudentMarksPageViewModel></viewModel:StudentMarksPageViewModel>
+    </Page.DataContext>
+    <Grid>
+        <TextBlock Style="{StaticResource Header}" Text="Оценки"></TextBlock>
+        <StackPanel Style="{StaticResource QuarterPanel}">
+            <TextBlock Style="{StaticResource QuarterPanelTextBlock}" Text="Четверть"></TextBlock>
+            <ComboBox ItemsSource="{Binding SemesterValues}" SelectedValue="{Binding Path=SelectedSemester, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="SelectionChanged">
+                        <behaviours:InvokeCommandAction Command="{Binding ChangeSemesterCommand}"></behaviours:InvokeCommandAction>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        <ListView Style="{StaticResource SubjectMarksListView}" ItemsSource="{Binding SubjectMarks}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding Key}"></GridViewColumn>
+                    <GridViewColumn Header="Оценки">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ListBox ItemsSource="{Binding Value}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding MarkNumber}"></TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"></WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                </ListBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

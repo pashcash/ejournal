@@ -1,0 +1,23 @@
+﻿<Page x:Class="web_journal.Pages.WelcomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:web_journal.Pages"
+      xmlns:viewModel="clr-namespace:web_journal.ViewModels"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="WelcomeTextBlock">
+            <Setter Property="TextBlock.Foreground" Value="Black"></Setter>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.FontSize" Value="20"></Setter>
+        </Style>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModel:WelcomePageViewModel></viewModel:WelcomePageViewModel>
+    </Page.DataContext>
+    <Grid>
+        <TextBlock Style="{StaticResource WelcomeTextBlock}" Text="{Binding Login, StringFormat={} Добро пожаловать {0}}"></TextBlock>
+    </Grid>
+</Page>

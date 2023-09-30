@@ -1,0 +1,88 @@
+﻿<Page x:Class="web_journal.Pages.TeacherSchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:web_journal.Pages"
+      xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:viewModel="clr-namespace:web_journal.ViewModels"
+      xmlns:converters="clr-namespace:web_journal.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TeacherSchedulePage">
+    <Page.Resources>
+        <Style x:Key="Header">
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="TextBlock.Padding" Value="8"></Setter>
+        </Style>
+        <Style x:Key="DayQuarterPanel">
+            <Setter Property="StackPanel.VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="StackPanel.HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="StackPanel.Orientation" Value="Horizontal"></Setter>
+        </Style>
+        <Style x:Key="ScheduleButton">
+            <Setter Property="Button.Margin" Value="10"></Setter>
+            <Setter Property="Button.Height" Value="40"></Setter>
+        </Style>
+        <converters:ClassIdValueConverter x:Key="ClassIdConverter"></converters:ClassIdValueConverter>
+        <converters:SubjectIdConverter x:Key="SubjectIdConverter"></converters:SubjectIdConverter>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModel:TeacherSchedulePageViewModel></viewModel:TeacherSchedulePageViewModel>
+    </Page.DataContext>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            
+            <TextBlock Style="{StaticResource Header}" Text="Расписание"></TextBlock>
+            <StackPanel Style="{StaticResource DayQuarterPanel}" Margin="10">
+                <TextBlock Text="Четверть:" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <ComboBox Name="SemesterComboBox" ItemsSource="{Binding ComboBoxSemValues}" SelectedValue="{Binding Path=CurrentSemester, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <behaviours:Interaction.Triggers>
+                        <behaviours:EventTrigger EventName="SelectionChanged">
+                            <behaviours:InvokeCommandAction Command="{Binding ChangeSemDayCommand}"></behaviours:InvokeCommandAction>
+                        </behaviours:EventTrigger>
+                    </behaviours:Interaction.Triggers>
+                </ComboBox>
+                <TextBlock Text="День:" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <ComboBox Name="DayComboBox" ItemsSource="{Binding ComboBoxDayValues}" SelectedValue="{Binding Path=CurrentDay, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <behaviours:Interaction.Triggers>
+                        <behaviours:EventTrigger EventName="SelectionChanged">
+                            <behaviours:InvokeCommandAction Command="{Binding ChangeSemDayCommand}"></behaviours:InvokeCommandAction>
+                        </behaviours:EventTrigger>
+                    </behaviours:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+            <ListView Margin="10" ItemsSource="{Binding ScheduleSubjects}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Класс" DisplayMemberBinding="{Binding ClassId, Converter={StaticResource ClassIdConverter}}"></GridViewColumn>
+                        <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding SubjectId, Converter={StaticResource SubjectIdConverter}}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <TextBlock Text="Выберите предмет" Style="{StaticResource Header}"></TextBlock>
+            <ListView Margin="10" ItemsSource="{Binding TeacherSubjects}" SelectedItem="{Binding Path=SelectedSubject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding SubjectName}"></GridViewColumn>
+                        <GridViewColumn Header="Описание" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <TextBlock Text="Выберите класс" Style="{StaticResource Header}"></TextBlock>
+            <ListView Margin="10" ItemsSource="{Binding TeacherClasses}" SelectedItem="{Binding Path=SelectedClass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding ClassNumber}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <Button Style="{StaticResource ScheduleButton}" Command="{Binding ScheduleCommand}">Добавить предмет в выбранный день</Button>
+            
+        </StackPanel>
+    </Grid>
+</Page>
