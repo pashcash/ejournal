@@ -19,6 +19,13 @@
             <Setter Property="Button.Margin" Value="10"></Setter>
             <Setter Property="Button.Height" Value="40"></Setter>
         </Style>
+        <Style x:Key="InfoTextBlock">
+            <Setter Property="TextBlock.Margin" Value="0 0 10 0"></Setter>
+        </Style>
+        <Style x:Key="InfoTextBox">
+            <Setter Property="TextBox.Margin" Value="0 0 10 0"></Setter>
+            <Setter Property="TextBox.Width" Value="120"></Setter>
+        </Style>
         <converters:UserIdValueConverter x:Key="UserIdConverter"></converters:UserIdValueConverter>
         <converters:ClassIdValueConverter x:Key="ClassIdConverter"></converters:ClassIdValueConverter>
     </Page.Resources>
@@ -41,20 +48,20 @@
             </ListView>
             <TextBlock Style="{StaticResource Header}" Text="Новый ученик"></TextBlock>
             <StackPanel Margin=" 10" Orientation="Horizontal">
-                <TextBlock Margin="0 0 10 0"  Text="Логин"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="120" Text="{Binding NewLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Пароль"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="120" Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Класс"></TextBlock>
+                <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Логин"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Пароль"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Класс"></TextBlock>
                 <ComboBox ItemsSource="{Binding ComboBoxClasses}" SelectedValue="{Binding CurrentClass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
             </StackPanel>
             <StackPanel Margin=" 10" Orientation="Horizontal">
-                <TextBlock Margin="0 0 10 0"  Text="Имя"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="120" Text="{Binding NewFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Фамилия"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="120" Text="{Binding NewMiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Отчество"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="120" Text="{Binding NewLastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Имя"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Фамилия"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewMiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Отчество"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewLastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
             </StackPanel>
             <Button Style="{StaticResource StudentAddButton}" Command="{Binding StudentAddCommand}">Добавить ученика</Button>
             <TextBlock Margin="10 0 10 0" Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Foreground="Red"></TextBlock>
