@@ -26,6 +26,21 @@
             <Setter Property="TextBox.Margin" Value="0 0 10 0"></Setter>
             <Setter Property="TextBox.Width" Value="120"></Setter>
         </Style>
+        <Style x:Key="InfoStackPanel">
+            <Setter Property="StackPanel.Margin" Value="10"></Setter>
+            <Setter Property="StackPanel.Orientation" Value="Horizontal"></Setter>
+        </Style>
+        <Style x:Key="ErrorTextBlock">
+            <Setter Property="TextBlock.Margin" Value="10 0 10 0"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
+        </Style>
+        <Style x:Key="StudentListView">
+            <Setter Property="ListView.Margin" Value="10"></Setter>
+            <Setter Property="ListView.MaxHeight" Value="90"></Setter>
+        </Style>
+        <Style x:Key="MainStackPanel">
+            <Setter Property="StackPanel.Orientation" Value="Vertical"></Setter>
+        </Style>
         <converters:UserIdValueConverter x:Key="UserIdConverter"></converters:UserIdValueConverter>
         <converters:ClassIdValueConverter x:Key="ClassIdConverter"></converters:ClassIdValueConverter>
     </Page.Resources>
@@ -33,9 +48,9 @@
         <viewModel:AdminStudentPageViewModel></viewModel:AdminStudentPageViewModel>
     </Page.DataContext>
     <Grid>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Style="{StaticResource MainStackPanel}">
             <TextBlock Style="{StaticResource Header}" Text="Ученики"></TextBlock>
-            <ListView Margin="10" MaxHeight="90" ItemsSource="{Binding Students}">
+            <ListView Style="{StaticResource StudentListView}" ItemsSource="{Binding Students}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Логин" DisplayMemberBinding="{Binding UserId, Converter={StaticResource UserIdConverter}}"></GridViewColumn>
@@ -47,7 +62,7 @@
                 </ListView.View>
             </ListView>
             <TextBlock Style="{StaticResource Header}" Text="Новый ученик"></TextBlock>
-            <StackPanel Margin=" 10" Orientation="Horizontal">
+            <StackPanel Style="{StaticResource InfoStackPanel}">
                 <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Логин"></TextBlock>
                 <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                 <TextBlock Style="{StaticResource InfoTextBlock}" Text="Пароль"></TextBlock>
@@ -55,7 +70,7 @@
                 <TextBlock Style="{StaticResource InfoTextBlock}" Text="Класс"></TextBlock>
                 <ComboBox ItemsSource="{Binding ComboBoxClasses}" SelectedValue="{Binding CurrentClass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
             </StackPanel>
-            <StackPanel Margin=" 10" Orientation="Horizontal">
+            <StackPanel Style="{StaticResource InfoStackPanel}">
                 <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Имя"></TextBlock>
                 <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                 <TextBlock Style="{StaticResource InfoTextBlock}" Text="Фамилия"></TextBlock>
@@ -64,7 +79,7 @@
                 <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewLastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
             </StackPanel>
             <Button Style="{StaticResource StudentAddButton}" Command="{Binding StudentAddCommand}">Добавить ученика</Button>
-            <TextBlock Margin="10 0 10 0" Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Foreground="Red"></TextBlock>
+            <TextBlock Style="{StaticResource ErrorTextBlock}" Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>
