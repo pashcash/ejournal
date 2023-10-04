@@ -27,6 +27,28 @@
             <Setter Property="Button.Margin" Value="10"></Setter>
             <Setter Property="Button.Height" Value="40"></Setter>
         </Style>
+        <Style x:Key="InfoTextBlock">
+            <Setter Property="TextBlock.Margin" Value="0 0 10 0"></Setter>
+        </Style>
+        <Style x:Key="InfoTextBox">
+            <Setter Property="TextBox.Margin" Value="0 0 10 0"></Setter>
+            <Setter Property="TextBox.Width" Value="100"></Setter>
+        </Style>
+        <Style x:Key="InfoStackPanel">
+            <Setter Property="StackPanel.Margin" Value="10"></Setter>
+            <Setter Property="StackPanel.Orientation" Value="Horizontal"></Setter>
+        </Style>
+        <Style x:Key="ErrorTextBlock">
+            <Setter Property="TextBlock.Margin" Value="10 0 10 0"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
+        </Style>
+        <Style x:Key="InfoListView">
+            <Setter Property="ListView.Margin" Value="10"></Setter>
+            <Setter Property="ListView.MaxHeight" Value="60"></Setter>
+        </Style>
+        <Style x:Key="MainStackPanel">
+            <Setter Property="StackPanel.Orientation" Value="Vertical"></Setter>
+        </Style>
         <converters:UserIdValueConverter x:Key="UserIdConverter"></converters:UserIdValueConverter>
         <converters:ClassIdValueConverter x:Key="ClassIdConverter"></converters:ClassIdValueConverter>
     </Page.Resources>
@@ -34,9 +56,9 @@
         <viewModel:AdminTeacherPageViewModel></viewModel:AdminTeacherPageViewModel>
     </Page.DataContext>
     <Grid>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Style="{StaticResource MainStackPanel}">
             <TextBlock Style="{StaticResource Header}" Text="Учителя"></TextBlock>
-            <ListView Margin="10" MaxHeight="60" ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListView Style="{StaticResource InfoListView}" ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Логин" DisplayMemberBinding="{Binding UserId, Converter={StaticResource UserIdConverter}}"></GridViewColumn>
@@ -47,22 +69,22 @@
                 </ListView.View>
             </ListView>
             <TextBlock Style="{StaticResource Header}" Text="Новый учитель"></TextBlock>
-            <StackPanel Margin=" 10" Orientation="Horizontal">
-                <TextBlock Margin="0 0 10 0"  Text="Логин"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Пароль"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0"  Text="Имя"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Фамилия"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewMiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Отчество"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewLastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+            <StackPanel Style="{StaticResource InfoStackPanel}">
+                <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Логин"></TextBlock>
+                <TextBox Style="{StaticResource InfoTextBox}" Text="{Binding NewLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Пароль"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Имя"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Фамилия"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewMiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Отчество"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewLastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
             </StackPanel>
             <Button Style="{StaticResource TeacherAddButton}" Command="{Binding TeacherAddCommand}">Добавить учителя</Button>
-            <TextBlock Margin="10 0 10 0" Text="{Binding ErrorTeacherMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Foreground="Red"></TextBlock>
+            <TextBlock Style="{StaticResource ErrorTextBlock}" Text="{Binding ErrorTeacherMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
             <TextBlock Style="{StaticResource Header}" Text="Предметы"></TextBlock>
-            <ListView Margin="10" MaxHeight="60" ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListView Style="{StaticResource InfoListView}" ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding SubjectName}"></GridViewColumn>
@@ -71,14 +93,14 @@
                 </ListView.View>
             </ListView>
             <TextBlock Style="{StaticResource Header}" Text="Новый предмет"></TextBlock>
-            <StackPanel Margin=" 10" Orientation="Horizontal">
-                <TextBlock Margin="0 0 10 0"  Text="Предмет"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewSubjectName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                <TextBlock Margin="0 0 10 0" Text="Описание"></TextBlock>
-                <TextBox Margin="0 0 10 0" Width="100" Text="{Binding NewSubjectDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+            <StackPanel Style="{StaticResource InfoStackPanel}">
+                <TextBlock Style="{StaticResource InfoTextBlock}"  Text="Предмет"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewSubjectName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                <TextBlock Style="{StaticResource InfoTextBlock}" Text="Описание"></TextBlock>
+                <TextBox  Style="{StaticResource InfoTextBox}" Text="{Binding NewSubjectDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
             </StackPanel>
             <Button Style="{StaticResource SubjectAddButton}" Command="{Binding SubjectAddCommand}">Добавить предмет</Button>
-            <TextBlock Margin="10 0 10 0" Text="{Binding ErrorSubjectMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Foreground="Red"></TextBlock>
+            <TextBlock Style="{StaticResource ErrorTextBlock}" Text="{Binding ErrorSubjectMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
             <TextBlock Style="{StaticResource Header}" Text="Для привязки учителя к предмету выберете учителя и предмет"></TextBlock>
             <Button Style="{StaticResource TeacherSubjectAddButton}" Command="{Binding TeacherSujectAddCommand}">Добавить предмет учителю</Button>
         </StackPanel>
